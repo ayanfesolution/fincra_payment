@@ -1,7 +1,7 @@
 name: fincra_payment
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
+homepage: https://github.com/ayanfesolution/fincra_payment
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
