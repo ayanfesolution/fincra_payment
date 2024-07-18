@@ -1,17 +1,11 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
 import 'error_widget.dart';
 import 'fincra_html.dart';
 import 'loading.dart';
 
-class FincraWebview extends StatefulWidget {
+class FincraPayment extends StatefulWidget {
   final String name;
   final String phoneNumber;
   final String amount;
@@ -23,7 +17,7 @@ class FincraWebview extends StatefulWidget {
   final Function(dynamic payload) onSuccess;
   final Function(dynamic payload) onError;
 
-  const FincraWebview({
+  const FincraPayment({
     super.key,
     required this.publicKey,
     required this.amount,
@@ -38,27 +32,20 @@ class FincraWebview extends StatefulWidget {
   });
 
   @override
-  FincraWebviewState createState() => FincraWebviewState();
+  FincraPaymentState createState() => FincraPaymentState();
 }
 
-class FincraWebviewState extends State<FincraWebview> {
+class FincraPaymentState extends State<FincraPayment> {
   final WebViewController _controller = WebViewController();
 
   bool _isLoading = true;
   bool _isError = false;
-
-  // final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers =
-  //     {Factory(() => EagerGestureRecognizer())}.toSet();
-
   @override
   void initState() {
-    //  if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
     _controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
-        //gestureRecognizers: gestureRecognizers,
-
         NavigationDelegate(
           onPageFinished: (String url) {
             _isLoading = false;
@@ -69,7 +56,6 @@ class FincraWebviewState extends State<FincraWebview> {
             _isError = true;
             setState(() {});
           },
-          //  gestureNavigationEnabled: true,
           onProgress: (int progress) {
             debugPrint('WebView is loading (progress : $progress%)');
           },
@@ -110,35 +96,6 @@ class FincraWebviewState extends State<FincraWebview> {
         Positioned(
           child: WebViewWidget(
             controller: _controller,
-            // initialUrl: Uri.dataFromString(
-            //   buildFincraHtml(
-            //     widget.name,
-            //     widget.amount,
-            //     widget.email,
-            //     widget.publicKey,
-            //     widget.feeBearer,
-            //     widget.phoneNumber,
-            //     widget.currency,
-            //   ),
-            //   mimeType: "text/html",
-            // ).toString(),
-            // javascriptChannels: _fincraJavascriptChannel,
-            // gestureRecognizers: gestureRecognizers,
-            // javascriptMode: JavascriptMode.unrestricted,
-            // onWebViewCreated: (WebViewController webViewController) {
-            //   _controller.complete(webViewController);
-            // },
-            // onPageFinished: (String url) {
-            //   _isLoading = false;
-            //   setState(() {});
-            // },
-            // onWebResourceError: (onWebResourceError) {
-            //   _isLoading = false;
-            //   _isError = true;
-            //   setState(() {});
-            // },
-            // gestureNavigationEnabled: true,
-            // navigationDelegate: _handleNavigationInterceptor,
           ),
         ),
         Visibility(
@@ -164,15 +121,6 @@ class FincraWebviewState extends State<FincraWebview> {
       ],
     );
   }
-
-  // Set<JavascriptChannel> get _fincraJavascriptChannel => {
-  //       JavascriptChannel(
-  //         name: 'FincraClientInterface',
-  //         onMessageReceived: (data) {
-  //           handleResponse(data.message);
-  //         },
-  //       )
-  //     };
 
   void handleResponse(String body) async {
     debugPrint('Handling response: $body');

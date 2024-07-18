@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'fincra.dart';
 
-class FincraFlutter {
+class FincraCheckout {
   static Future launchFincra(
     BuildContext _, {
     /// Public Key from your https://app.fincra.com/settings/api
@@ -56,7 +56,7 @@ class FincraFlutter {
                 ),
                 color: Colors.transparent,
               ),
-              child: FincraWebview(
+              child: FincraPayment(
                 name: name,
                 phoneNumber: phoneNumber,
                 publicKey: publicKey,

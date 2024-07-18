@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FincraLoader extends StatelessWidget {
-  const FincraLoader({Key? key}) : super(key: key);
+  const FincraLoader({super.key});
 
   @override
   Widget build(BuildContext context) {

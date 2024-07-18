@@ -42,9 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
           child: ElevatedButton(
         onPressed: () {
-          FincraFlutter.launchFincra(
+          FincraCheckout.launchFincra(
             context,
-            publicKey: "******************************",
+            publicKey:
+                "******************************", // Use test key for test and live key for live
             amount: '100',
             name: "Ayanfe Afolabi",
             phoneNumber: '+2347031276982',
@@ -64,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           );
         },
-        child: Text('Make Payment'),
+        child: const Text('Make Payment'),
       )),
     );
   }
