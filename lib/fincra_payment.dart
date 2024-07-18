@@ -1,7 +1,7 @@
 library fincra_payment;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'fincra/error_widget.dart';
+export 'fincra/fincra.dart';
+export 'fincra/fincra_flutter.dart';
+export 'fincra/fincra_html.dart';
+export 'fincra/loading.dart';

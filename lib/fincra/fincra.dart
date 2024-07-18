@@ -42,7 +42,7 @@ class FincraWebview extends StatefulWidget {
 }
 
 class FincraWebviewState extends State<FincraWebview> {
-  late final WebViewController _controller;
+  final WebViewController _controller = WebViewController();
 
   bool _isLoading = true;
   bool _isError = false;
@@ -60,27 +60,29 @@ class FincraWebviewState extends State<FincraWebview> {
         //gestureRecognizers: gestureRecognizers,
 
         NavigationDelegate(
-            onPageFinished: (String url) {
-              _isLoading = false;
-              setState(() {});
-            },
-            onWebResourceError: (onWebResourceError) {
-              _isLoading = false;
-              _isError = true;
-              setState(() {});
-            },
-            //  gestureNavigationEnabled: true,
-            onProgress: (int progress) {
-              debugPrint('WebView is loading (progress : $progress%)');
-            },
-            onPageStarted: (String url) {
-              debugPrint('Page started loading: $url');
-            },
-            onNavigationRequest: _handleNavigationInterceptor),
+          onPageFinished: (String url) {
+            _isLoading = false;
+            setState(() {});
+          },
+          onWebResourceError: (onWebResourceError) {
+            _isLoading = false;
+            _isError = true;
+            setState(() {});
+          },
+          //  gestureNavigationEnabled: true,
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            debugPrint('Page started loading: $url');
+          },
+          onNavigationRequest: _handleNavigationInterceptor,
+        ),
       )
       ..addJavaScriptChannel(
-        'Toaster',
+        'FincraClientInterface',
         onMessageReceived: (data) {
+          debugPrint('JavaScript message received: ${data.message}');
           handleResponse(data.message);
         },
       )
@@ -96,7 +98,7 @@ class FincraWebviewState extends State<FincraWebview> {
             widget.currency,
           ),
           mimeType: "text/html",
-        ).toString() as Uri,
+        ),
       );
     super.initState();
   }
@@ -173,6 +175,7 @@ class FincraWebviewState extends State<FincraWebview> {
   //     };
 
   void handleResponse(String body) async {
+    debugPrint('Handling response: $body');
     try {
       final Map<String, dynamic> bodyMap = json.decode(body);
       final String event = bodyMap['event'];
@@ -181,13 +184,13 @@ class FincraWebviewState extends State<FincraWebview> {
           widget.onClose();
           break;
         case "checkout.success":
-          widget.onSuccess(
-            bodyMap['data'],
-          );
+          widget.onSuccess(bodyMap['data']);
           break;
         default:
+          widget.onError({"data": "Unhandled event type: $event"});
       }
     } catch (e) {
+      debugPrint('Error in handleResponse: $e');
       widget.onError({"data": "something really bad happened."});
     }
   }
