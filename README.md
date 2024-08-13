@@ -1,7 +1,3 @@
-Sure, here's a customized `README.md` for your package, based on your description:
-
----
-
 # Fincra Payment Package
 
 A Flutter package for integrating Fincra Payment checkout, enabling developers to facilitate payments using debit and credit cards, and providing hooks for custom network calls post-success.

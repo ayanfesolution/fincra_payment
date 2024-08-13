@@ -1,11 +1,14 @@
 name: fincra_payment
-description: "A new Flutter package project."
-version: 0.0.1
-publish_to: https://dart.dev/tools/pub/pubspec
-homepage: https://github.com/ayanfesolution/fincra_payment
+description: "A fincra checkout payment package"
+version: 1.0.0
+homepage: https://github.com/ayanfesolution/fincra_payment.git
+repository: https://github.com/ayanfesolution/fincra_payment.git
+issue_tracker: https://github.com/ayanfesolution/fincra_payment/issues
+license: MIT
+
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:

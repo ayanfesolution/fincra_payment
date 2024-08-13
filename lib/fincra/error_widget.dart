@@ -5,10 +5,10 @@ class FincraErrorWidget extends StatelessWidget {
   final VoidCallback reload;
 
   const FincraErrorWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.reload,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
