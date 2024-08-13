@@ -1,6 +1,6 @@
 name: fincra_payment
 description: "A fincra checkout payment package"
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/ayanfesolution/fincra_payment.git
 repository: https://github.com/ayanfesolution/fincra_payment.git
 issue_tracker: https://github.com/ayanfesolution/fincra_payment/issues
